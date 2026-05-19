@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="description" content="Alsama Institute – Year 1 May Monthly Math Exam">
+<meta name="theme-color" content="#1a1a2e">
+<title>Alsama Institute – May Monthly Exam</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1a2e;
+    --paper: #fdf8f0;
+    --accent: #c0392b;
+    --soft: #e8ddd0;
+    --teal: #1a6b6b;
+    --score: #2d6a4f;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Source Sans 3', 'Segoe UI', sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    min-height: 100vh;
+    padding: 0 0 60px;
+  }
+
+  /* ── HEADER ── */
+  header {
+    background: var(--ink);
+    color: #fff;
+    padding: 20px 20px 16px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    border-bottom: 5px solid var(--accent);
+  }
+  .logo-box {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 1.8rem;
+    color: var(--soft);
+    letter-spacing: 1px;
+    flex-shrink: 0;
+  }
+  .header-info { flex: 1; }
+  .header-info h1 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 1.15rem;
+    letter-spacing: .5px;
+    color: #fff;
+  }
+  .header-info p { font-size: .8rem; color: #aaa; margin-top: 3px; }
+
+  /* ── STUDENT INFO ── */
+  .student-info {
+    background: #fff;
+    border: 2px solid var(--soft);
+    border-radius: 10px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    padding: 20px;
+    margin: 20px 14px 0;
+    box-shadow: 0 2px 12px rgba(0,0,0,.06);
+  }
+  .field-group label {
+    display: block;
+    font-size: .72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #888;
+    margin-bottom: 5px;
+  }
+  .field-group input {
+    width: 100%;
+    border: none;
+    border-bottom: 2px solid var(--soft);
+    padding: 6px 2px;
+    font-size: .95rem;
+    font-family: inherit;
+    color: var(--ink);
+    background: transparent;
+    outline: none;
+    -webkit-appearance: none;
+    appearance: none;
+    border-radius: 0;
+    transition: border-color .2s;
+  }
+  .field-group input:focus { border-color: var(--teal); }
+
+  /* ── SCORE BAR ── */
+  .score-bar {
+    margin: 16px 14px 0;
+    background: var(--score);
+    color: #fff;
+    border-radius: 8px;
+    padding: 12px 16px;
+    align-items: center;
+    justify-content: space-between;
+    font-size: .88rem;
+    gap: 10px;
+    display: none;
+  }
+  .score-bar.visible {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .score-bar strong { font-size: 1.3rem; }
+
+  /* ── OBJECTIVE ── */
+  .objective {
+    margin: 16px 14px 0;
+    padding: 10px 16px;
+    border-left: 4px solid var(--accent);
+    background: #fff8f5;
+    font-style: italic;
+    font-size: .88rem;
+    color: #555;
+    border-radius: 0 6px 6px 0;
+  }
+
+  /* ── EXERCISE CARD ── */
+  .exercise {
+    margin: 20px 14px 0;
+    background: #fff;
+    border: 2px solid var(--soft);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 14px rgba(0,0,0,.05);
+  }
+  .exercise-header {
+    background: var(--ink);
+    color: #fff;
+    padding: 12px 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .exercise-header h2 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 1rem;
+  }
+  .points-badge {
+    background: var(--accent);
+    color: #fff;
+    font-size: .72rem;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 20px;
+    letter-spacing: .5px;
+    white-space: nowrap;
+    margin-left: 8px;
+    flex-shrink: 0;
+  }
+  .exercise-body { padding: 18px; }
+  .question { font-weight: 600; margin-bottom: 16px; font-size: .95rem; }
+
+  /* ── ABACUS ── */
+  .abacus-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-top: 8px;
+  }
+  .abacus-item { text-align: center; }
+  .abacus-item label { display: block; font-weight: 600; margin-bottom: 6px; font-size: .85rem; color: #555; }
+  .abacus-img {
+    background: var(--paper);
+    border: 1px dashed #ccc;
+    border-radius: 6px;
+    padding: 8px 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 8px;
+    min-height: 90px;
+  }
+  .abacus-item input {
+    width: 72px;
+    text-align: center;
+    border: 2px solid var(--soft);
+    border-radius: 6px;
+    padding: 6px 4px;
+    font-size: 1rem;
+    font-family: inherit;
+    outline: none;
+    -webkit-appearance: none;
+    appearance: none;
+    transition: border-color .2s;
+  }
+  .abacus-item input:focus { border-color: var(--teal); }
+
+  /* ── SHAPE MATCHING ── */
+  .shape-rows { display: flex; flex-direction: column; gap: 12px; }
+  .shape-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .shape-label {
+    font-size: .8rem;
+    background: var(--paper);
+    border: 1px dashed #ccc;
+    border-radius: 4px;
+    padding: 4px 6px;
+    color: #666;
+    min-width: 70px;
+    text-align: center;
+    flex-shrink: 0;
+  }
+  .match-select {
+    border: 2px solid var(--soft);
+    border-radius: 6px;
+    padding: 6px 28px 6px 8px;
+    font-family: inherit;
+    font-size: .88rem;
+    color: var(--ink);
+    background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23555' stroke-width='1.5' fill='none'/%3E%3C/svg%3E") no-repeat right 8px center;
+    cursor: pointer;
+    outline: none;
+    -webkit-appearance: none;
+    appearance: none;
+    transition: border-color .2s;
+  }
+  .match-select:focus { border-color: var(--teal); }
+
+  /* ── 3D SHAPES ── */
+  .shapes3d-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin-top: 8px;
+  }
+  .shape3d-item { text-align: center; }
+  .shape3d-img {
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 8px;
+  }
+  .shape3d-item input {
+    width: 100%;
+    border: 2px solid var(--soft);
+    border-radius: 6px;
+    padding: 6px;
+    text-align: center;
+    font-family: inherit;
+    font-size: .88rem;
+    outline: none;
+    -webkit-appearance: none;
+    appearance: none;
+    transition: border-color .2s;
+  }
+  .shape3d-item input:focus { border-color: var(--teal); }
+
+  /* ── IDENTIFY SHAPES A-F ── */
+  .shapes-af-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin-bottom: 18px;
+  }
+  .shape-af-item {
+    background: var(--paper);
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 8px 4px;
+    text-align: center;
+    font-size: .8rem;
+    color: #555;
+  }
+  .shape-af-item span { display: block; font-weight: 700; color: var(--ink); font-size: .88rem; margin-top: 4px; }
+
+  /* ── Q&A ROWS ── */
+  .qa-row { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; font-size: .9rem; flex-wrap: wrap; }
+  .qa-row label { flex: 1; min-width: 120px; }
+  .qa-row input,
+  .qa-row select {
+    border: 2px solid var(--soft);
+    border-radius: 6px;
+    padding: 6px 28px 6px 8px;
+    font-family: inherit;
+    font-size: .88rem;
+    outline: none;
+    -webkit-appearance: none;
+    appearance: none;
+    background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23555' stroke-width='1.5' fill='none'/%3E%3C/svg%3E") no-repeat right 8px center;
+    min-width: 90px;
+    transition: border-color .2s;
+  }
+  .qa-row input[type="number"] {
+    background-image: none;
+    padding-right: 8px;
+    width: 70px;
+    min-width: 70px;
+  }
+  .qa-row input:focus,
+  .qa-row select:focus { border-color: var(--teal); }
+
+  /* ── BAR CHART ── */
+  .graph-wrap { display: flex; gap: 16px; flex-wrap: wrap; align-items: flex-start; }
+  .bar-chart-svg { flex-shrink: 0; max-width: 100%; }
+  .graph-questions { flex: 1; min-width: 180px; }
+
+  /* ── SUBMIT ── */
+  .submit-wrap { margin: 28px 14px 0; text-align: center; }
+  .submit-btn {
+    background: var(--ink);
+    color: #fff;
+    border: none;
+    padding: 14px 40px;
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 1.05rem;
+    border-radius: 8px;
+    cursor: pointer;
+    letter-spacing: .5px;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+    width: 100%;
+    max-width: 320px;
+    transition: background .2s;
+  }
+  .submit-btn:hover { background: #2c2c4a; }
+  .submit-btn:active { opacity: .85; }
+
+  /* ── RESULT FEEDBACK ── */
+  .correct   { border-color: #2d9954 !important; background: #f0fff6 !important; }
+  .incorrect { border-color: var(--accent) !important; background: #fff5f5 !important; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 420px) {
+    .student-info { grid-template-columns: 1fr; }
+    .abacus-grid { gap: 6px; }
+    .abacus-item input { width: 58px; font-size: .9rem; }
+    .shapes3d-grid { grid-template-columns: 1fr 1fr; }
+    .shapes-af-grid { grid-template-columns: repeat(2, 1fr); }
+    .shape3d-img svg { width: 56px; height: 64px; }
+    .bar-chart-svg { width: 100%; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo-box">Alsama</div>
+  <div class="header-info">
+    <h1>Math Department — Monthly Exam</h1>
+    <p>Year 1 &nbsp;|&nbsp; May &nbsp;|&nbsp; Total: 100 points</p>
+  </div>
+</header>
+
+<p class="objective">Objective: I will be able to test my math skills taken at Alsama in May.</p>
+
+<!-- Student Info -->
+<div class="student-info">
+  <div class="field-group">
+    <label>Student Name</label>
+    <input type="text" id="student-name" placeholder="Enter full name" autocomplete="name">
+  </div>
+  <div class="field-group">
+    <label>Date</label>
+    <input type="text" id="exam-date" placeholder="DD/MM/YYYY" inputmode="numeric">
+  </div>
+  <div class="field-group">
+    <label>Group</label>
+    <input type="text" id="group" placeholder="e.g. Year 1 – A">
+  </div>
+  <div class="field-group">
+    <label>Grade (auto-calculated)</label>
+    <input type="text" id="grade-display" placeholder="Submit to see grade" readonly
+           style="color:var(--score);font-weight:700;">
+  </div>
+</div>
+
+<div class="score-bar" id="score-bar">
+  <span>📊 Your Score: <strong id="score-val">—</strong> / 100 pts</span>
+  <span id="score-msg"></span>
+</div>
+
+<!-- Exercise 1 -->
+<div class="exercise">
+  <div class="exercise-header">
+    <h2>Exercise 1 — Abacus Numbers</h2>
+    <span class="points-badge">20 pts</span>
+  </div>
+  <div class="exercise-body">
+    <p class="question">What number does each abacus show? (T = Tens, U = Units)</p>
+    <div class="abacus-grid">
+
+      <div class="abacus-item">
+        <label>a)</label>
+        <div class="abacus-img">
+          <!-- 4 tens, 3 units = 43 -->
+          <svg width="64" height="88" viewBox="0 0 64 88" aria-label="Abacus: 4 tens, 3 units">
+            <line x1="16" y1="5" x2="16" y2="68" stroke="#555" stroke-width="2"/>
+            <line x1="48" y1="5" x2="48" y2="68" stroke="#555" stroke-width="2"/>
+            <text x="16" y="80" text-anchor="middle" font-size="10" fill="#333">T</text>
+            <text x="48" y="80" text-anchor="middle" font-size="10" fill="#333">U</text>
+            <circle cx="16" cy="14" r="5" fill="#c0392b"/>
+            <circle cx="16" cy="26" r="5" fill="#c0392b"/>
+            <circle cx="16" cy="38" r="5" fill="#c0392b"/>
+            <circle cx="16" cy="50" r="5" fill="#c0392b"/>
+            <circle cx="48" cy="14" r="5" fill="#2980b9"/>
+            <circle cx="48" cy="26" r="5" fill="#2980b9"/>
+            <circle cx="48" cy="38" r="5" fill="#2980b9"/>
+          </svg>
+        </div>
+        <input type="number" id="ex1a" placeholder="?" inputmode="numeric" min="0" max="99" data-answer="43">
+      </div>
+
+      <div class="abacus-item">
+        <label>b)</label>
+        <div class="abacus-img">
+          <!-- 3 tens, 4 units = 34 -->
+          <svg width="64" height="88" viewBox="0 0 64 88" aria-label="Abacus: 3 tens, 4 units">
+            <line x1="16" y1="5" x2="16" y2="68" stroke="#555" stroke-width="2"/>
+            <line x1="48" y1="5" x2="48" y2="68" stroke="#555" stroke-width="2"/>
+            <text x="16" y="80" text-anchor="middle" font-size="10" fill="#333">T</text>
+            <text x="48" y="80" text-anchor="middle" font-size="10" fill="#333">U</text>
+            <circle cx="16" cy="14" r="5" fill="#c0392b"/>
+            <circle cx="16" cy="26" r="5" fill="#c0392b"/>
+            <circle cx="16" cy="38" r="5" fill="#c0392b"/>
+            <circle cx="48" cy="14" r="5" fill="#2980b9"/>
+            <circle cx="48" cy="26" r="5" fill="#2980b9"/>
+            <circle cx="48" cy="38" r="5" fill="#2980b9"/>
+            <circle cx="48" cy="50" r="5" fill="#2980b9"/>
+          </svg>
+        </div>
+        <input type="number" id="ex1b" placeholder="?" inputmode="numeric" min="0" max="99" data-answer="34">
+      </div>
+
+      <div class="abacus-item">
+        <label>c)</label>
+        <div class="abacus-img">
+          <!-- 3 tens, 3 units = 33 -->
+          <svg width="64" height="88" viewBox="0 0 64 88" aria-label="Abacus: 3 tens, 3 units">
+            <line x1="16" y1="5" x2="16" y2="68" stroke="#555" stroke-width="2"/>
+            <line x1="48" y1="5" x2="48" y2="68" stroke="#555" stroke-width="2"/>
+            <text x="16" y="80" text-anchor="middle" font-size="10" fill="#333">T</text>
+            <text x="48" y="80" text-anchor="middle" font-size="10" fill="#333">U</text>
+            <circle cx="16" cy="14" r="5" fill="#c0392b"/>
+            <circle cx="16" cy="26" r="5" fill="#c0392b"/>
+            <circle cx="16" cy="38" r="5" fill="#c0392b"/>
+            <circle cx="48" cy="14" r="5" fill="#2980b9"/>
+            <circle cx="48" cy="26" r="5" fill="#2980b9"/>
+            <circle cx="48" cy="38" r="5" fill="#2980b9"/>
+          </svg>
+        </div>
+        <input type="number" id="ex1c" placeholder="?" inputmode="numeric" min="0" max="99" data-answer="33">
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- Exercise 2 -->
+<div class="exercise">
+  <div class="exercise-header">
+    <h2>Exercise 2 — Shape Names</h2>
+    <span class="points-badge">15 pts</span>
+  </div>
+  <div class="exercise-body">
+    <p class="question">Match each shape to its correct name.</p>
+    <div class="shape-rows">
+
+      <div class="shape-row">
+        <div class="shape-label">
+          <svg width="60" height="36" viewBox="0 0 60 36" aria-label="Ellipse / Circle">
+            <ellipse cx="30" cy="18" rx="28" ry="15" fill="none" stroke="#333" stroke-width="2"/>
+          </svg>
+        </div>
+        <select class="match-select" id="ex2_circle" data-answer="Circle">
+          <option value="">— select —</option>
+          <option>Circle</option><option>Square</option><option>Pentagon</option><option>Octagon</option>
+        </select>
+      </div>
+
+      <div class="shape-row">
+        <div class="shape-label">
+          <svg width="60" height="40" viewBox="0 0 60 40" aria-label="Rectangle / Square">
+            <rect x="4" y="6" width="52" height="30" fill="none" stroke="#333" stroke-width="2"/>
+          </svg>
+        </div>
+        <select class="match-select" id="ex2_square" data-answer="Square">
+          <option value="">— select —</option>
+          <option>Circle</option><option>Square</option><option>Pentagon</option><option>Octagon</option>
+        </select>
+      </div>
+
+      <div class="shape-row">
+        <div class="shape-label">
+          <svg width="60" height="44" viewBox="0 0 60 44" aria-label="Pentagon">
+            <polygon points="30,4 56,18 46,40 14,40 4,18" fill="none" stroke="#333" stroke-width="2"/>
+          </svg>
+        </div>
+        <select class="match-select" id="ex2_pentagon" data-answer="Pentagon">
+          <option value="">— select —</option>
+          <option>Circle</option><option>Square</option><option>Pentagon</option><option>Octagon</option>
+        </select>
+      </div>
+
+      <div class="shape-row">
+        <div class="shape-label">
+          <svg width="60" height="46" viewBox="0 0 60 46" aria-label="Octagon">
+            <polygon points="20,4 40,4 54,14 54,32 40,42 20,42 6,32 6,14" fill="none" stroke="#333" stroke-width="2"/>
+          </svg>
+        </div>
+        <select class="match-select" id="ex2_octagon" data-answer="Octagon">
+          <option value="">— select —</option>
+          <option>Circle</option><option>Square</option><option>Pentagon</option><option>Octagon</option>
+        </select>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- Exercise 4 -->
+<div class="exercise">
+  <div class="exercise-header">
+    <h2>Exercise 4 — 3D Shapes</h2>
+    <span class="points-badge">15 pts</span>
+  </div>
+  <div class="exercise-body">
+    <p class="question">Name the following 3D shapes.</p>
+    <div class="shapes3d-grid">
+
+      <!-- Cone -->
+      <div class="shape3d-item">
+        <div class="shape3d-img">
+          <svg width="70" height="80" viewBox="0 0 70 80" aria-label="Cone">
+            <polygon points="5,68 65,68 35,8" fill="#e74c3c" opacity=".5"/>
+            <polygon points="5,68 65,68 35,8" fill="none" stroke="#c0392b" stroke-width="2"/>
+            <ellipse cx="35" cy="68" rx="30" ry="10" fill="#e74c3c" opacity=".4"/>
+            <ellipse cx="35" cy="68" rx="30" ry="10" fill="none" stroke="#c0392b" stroke-width="2"/>
+          </svg>
+        </div>
+        <input type="text" id="ex4a" placeholder="Shape name…" data-answer="cone">
+      </div>
+
+      <!-- Cylinder -->
+      <div class="shape3d-item">
+        <div class="shape3d-img">
+          <svg width="70" height="80" viewBox="0 0 70 80" aria-label="Cylinder">
+            <rect x="7" y="18" width="56" height="48" fill="#9b59b6" opacity=".3"/>
+            <line x1="7"  y1="18" x2="7"  y2="66" stroke="#8e44ad" stroke-width="2"/>
+            <line x1="63" y1="18" x2="63" y2="66" stroke="#8e44ad" stroke-width="2"/>
+            <ellipse cx="35" cy="66" rx="28" ry="10" fill="#9b59b6" opacity=".5"/>
+            <ellipse cx="35" cy="66" rx="28" ry="10" fill="none" stroke="#8e44ad" stroke-width="2"/>
+            <ellipse cx="35" cy="18" rx="28" ry="10" fill="#9b59b6" opacity=".6"/>
+            <ellipse cx="35" cy="18" rx="28" ry="10" fill="none" stroke="#8e44ad" stroke-width="2"/>
+          </svg>
+        </div>
+        <input type="text" id="ex4b" placeholder="Shape name…" data-answer="cylinder">
+      </div>
+
+      <!-- Cuboid -->
+      <div class="shape3d-item">
+        <div class="shape3d-img">
+          <svg width="80" height="70" viewBox="0 0 80 70" aria-label="Cuboid">
+            <polygon points="10,50 50,50 50,20 10,20" fill="#3498db" opacity=".35"/>
+            <polygon points="50,20 70,8 70,38 50,50"  fill="#2980b9" opacity=".5"/>
+            <polygon points="10,20 50,20 70,8 30,8"   fill="#5dade2" opacity=".5"/>
+            <polygon points="10,50 50,50 50,20 10,20" fill="none" stroke="#1a6b9e" stroke-width="2"/>
+            <polygon points="50,20 70,8 70,38 50,50"  fill="none" stroke="#1a6b9e" stroke-width="2"/>
+            <polygon points="10,20 50,20 70,8 30,8"   fill="none" stroke="#1a6b9e" stroke-width="2"/>
+            <line x1="10" y1="50" x2="30" y2="38" stroke="#1a6b9e" stroke-width="1.5" stroke-dasharray="4,3"/>
+            <line x1="30" y1="8"  x2="30" y2="38" stroke="#1a6b9e" stroke-width="1.5" stroke-dasharray="4,3"/>
+          </svg>
+        </div>
+        <input type="text" id="ex4c" placeholder="Shape name…" data-answer="cuboid">
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- Exercise 5 -->
+<div class="exercise">
+  <div class="exercise-header">
+    <h2>Exercise 5 — Identify Shapes A–F</h2>
+    <span class="points-badge">15 pts</span>
+  </div>
+  <div class="exercise-body">
+    <p class="question">Look at shapes A–F and answer the questions below.</p>
+    <div class="shapes-af-grid">
+      <div class="shape-af-item">
+        <svg width="50" height="42" aria-label="Triangle"><polygon points="25,4 48,40 2,40" fill="none" stroke="#333" stroke-width="2"/></svg>
+        <span>A</span>
+      </div>
+      <div class="shape-af-item">
+        <svg width="44" height="44" aria-label="Square"><rect x="4" y="4" width="36" height="36" fill="none" stroke="#333" stroke-width="2"/></svg>
+        <span>B</span>
+      </div>
+      <div class="shape-af-item">
+        <svg width="50" height="42" aria-label="Diamond"><polygon points="25,4 46,21 25,38 4,21" fill="none" stroke="#333" stroke-width="2"/></svg>
+        <span>C</span>
+      </div>
+      <div class="shape-af-item">
+        <svg width="56" height="40" aria-label="Trapezoid"><polygon points="10,36 46,36 40,8 16,8" fill="none" stroke="#333" stroke-width="2"/></svg>
+        <span>D</span>
+      </div>
+      <div class="shape-af-item">
+        <svg width="50" height="48" aria-label="Pentagon"><polygon points="25,4 48,20 38,44 12,44 2,20" fill="none" stroke="#333" stroke-width="2"/></svg>
+        <span>E</span>
+      </div>
+      <div class="shape-af-item">
+        <svg width="52" height="50" aria-label="Hexagon"><polygon points="26,4 48,16 48,36 26,48 4,36 4,16" fill="none" stroke="#333" stroke-width="2"/></svg>
+        <span>F</span>
+      </div>
+    </div>
+
+    <div class="qa-row">
+      <label>a. Which is the triangle?</label>
+      <select id="ex5a" data-answer="A">
+        <option value="">—</option>
+        <option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option>
+      </select>
+    </div>
+    <div class="qa-row">
+      <label>b. Which is the square?</label>
+      <select id="ex5b" data-answer="B">
+        <option value="">—</option>
+        <option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option>
+      </select>
+    </div>
+    <div class="qa-row">
+      <label>c. Which is the rectangle?</label>
+      <select id="ex5c" data-answer="D">
+        <option value="">—</option>
+        <option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option>
+      </select>
+    </div>
+  </div>
+</div>
+
+<!-- Exercise 6 -->
+<div class="exercise">
+  <div class="exercise-header">
+    <h2>Exercise 6 — T-Shirt Block Graph</h2>
+    <span class="points-badge">15 pts</span>
+  </div>
+  <div class="exercise-body">
+    <p class="question">The block graph shows how many T-shirts Caroline sold yesterday.</p>
+    <div class="graph-wrap">
+      <svg class="bar-chart-svg" width="200" height="160" viewBox="0 0 200 160" aria-label="Bar chart: T-shirt sales">
+        <line x1="30" y1="10" x2="30"  y2="130" stroke="#333" stroke-width="2"/>
+        <line x1="30" y1="130" x2="190" y2="130" stroke="#333" stroke-width="2"/>
+        <text x="25" y="130" text-anchor="end" font-size="10" fill="#555">0</text>
+        <text x="25" y="105" text-anchor="end" font-size="10" fill="#555">2</text>
+        <text x="25" y="80"  text-anchor="end" font-size="10" fill="#555">4</text>
+        <text x="25" y="55"  text-anchor="end" font-size="10" fill="#555">6</text>
+        <line x1="28" y1="105" x2="32" y2="105" stroke="#333"/>
+        <line x1="28" y1="80"  x2="32" y2="80"  stroke="#333"/>
+        <line x1="28" y1="55"  x2="32" y2="55"  stroke="#333"/>
+        <!-- small=2, medium=5, large=6 -->
+        <rect x="40"  y="80"   width="30" height="50"    fill="#3498db" rx="2"/>
+        <rect x="90"  y="17.5" width="30" height="112.5" fill="#e67e22" rx="2"/>
+        <rect x="140" y="5"    width="30" height="125"   fill="#2ecc71" rx="2"/>
+        <text x="55"  y="148" text-anchor="middle" font-size="9" fill="#333">SMALL</text>
+        <text x="105" y="148" text-anchor="middle" font-size="9" fill="#333">MEDIUM</text>
+        <text x="155" y="148" text-anchor="middle" font-size="9" fill="#333">LARGE</text>
+      </svg>
+      <div class="graph-questions">
+        <p style="margin-bottom:12px;font-size:.88rem;color:#555;">How many were sold?</p>
+        <div class="qa-row">
+          <label>a. Small size:</label>
+          <input type="number" id="ex6a" placeholder="?" inputmode="numeric" data-answer="2">
+        </div>
+        <div class="qa-row">
+          <label>b. Large size:</label>
+          <input type="number" id="ex6b" placeholder="?" inputmode="numeric" data-answer="6">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Exercise 7 -->
+<div class="exercise">
+  <div class="exercise-header">
+    <h2>Exercise 7 — Email Block Graph</h2>
+    <span class="points-badge">15 pts</span>
+  </div>
+  <div class="exercise-body">
+    <p class="question">The block graph shows how many e-mails Andy received last week.</p>
+    <div class="graph-wrap">
+      <svg class="bar-chart-svg" width="230" height="160" viewBox="0 0 230 160" aria-label="Bar chart: emails per day">
+        <line x1="30" y1="10"  x2="30"  y2="130" stroke="#333" stroke-width="2"/>
+        <line x1="30" y1="130" x2="220" y2="130" stroke="#333" stroke-width="2"/>
+        <text x="25" y="130" text-anchor="end" font-size="9" fill="#555">0</text>
+        <text x="25" y="102" text-anchor="end" font-size="9" fill="#555">10</text>
+        <text x="25" y="74"  text-anchor="end" font-size="9" fill="#555">20</text>
+        <text x="25" y="46"  text-anchor="end" font-size="9" fill="#555">30</text>
+        <text x="25" y="18"  text-anchor="end" font-size="9" fill="#555">40</text>
+        <!-- Mo=15, Tu=12, We=38, Th=28, Fr=20, Sa=22, Su=10 | scale: 40=120px → 1unit=3px -->
+        <rect x="35"  y="85"  width="20" height="45"  fill="#9b59b6" rx="2"/>
+        <rect x="60"  y="94"  width="20" height="36"  fill="#9b59b6" rx="2"/>
+        <rect x="85"  y="16"  width="20" height="114" fill="#e74c3c" rx="2"/>
+        <rect x="110" y="46"  width="20" height="84"  fill="#9b59b6" rx="2"/>
+        <rect x="135" y="70"  width="20" height="60"  fill="#9b59b6" rx="2"/>
+        <rect x="160" y="64"  width="20" height="66"  fill="#9b59b6" rx="2"/>
+        <rect x="185" y="100" width="20" height="30"  fill="#2ecc71" rx="2"/>
+        <text x="45"  y="148" text-anchor="middle" font-size="8" fill="#333">Mo</text>
+        <text x="70"  y="148" text-anchor="middle" font-size="8" fill="#333">Tu</text>
+        <text x="95"  y="148" text-anchor="middle" font-size="8" fill="#333">We</text>
+        <text x="120" y="148" text-anchor="middle" font-size="8" fill="#333">Th</text>
+        <text x="145" y="148" text-anchor="middle" font-size="8" fill="#333">Fr</text>
+        <text x="170" y="148" text-anchor="middle" font-size="8" fill="#333">Sa</text>
+        <text x="195" y="148" text-anchor="middle" font-size="8" fill="#333">Su</text>
+      </svg>
+      <div class="graph-questions">
+        <p style="margin-bottom:12px;font-size:.88rem;color:#555;">On which day did he receive:</p>
+        <div class="qa-row">
+          <label>a. Most e-mails:</label>
+          <select id="ex7a" data-answer="Wednesday">
+            <option value="">—</option>
+            <option>Monday</option><option>Tuesday</option><option>Wednesday</option>
+            <option>Thursday</option><option>Friday</option><option>Saturday</option><option>Sunday</option>
+          </select>
+        </div>
+        <div class="qa-row">
+          <label>b. Least e-mails:</label>
+          <select id="ex7b" data-answer="Sunday">
+            <option value="">—</option>
+            <option>Monday</option><option>Tuesday</option><option>Wednesday</option>
+            <option>Thursday</option><option>Friday</option><option>Saturday</option><option>Sunday</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Submit -->
+<div class="submit-wrap">
+  <button class="submit-btn" id="submit-btn">Submit Exam</button>
+</div>
+
+<script>
+(function () {
+  'use strict';
+
+  var ANSWERS = {
+    ex1a:        { answer: '43',        points: 6.67, type: 'number' },
+    ex1b:        { answer: '34',        points: 6.67, type: 'number' },
+    ex1c:        { answer: '33',        points: 6.66, type: 'number' },
+    ex2_circle:  { answer: 'circle',    points: 3.75, type: 'text'   },
+    ex2_square:  { answer: 'square',    points: 3.75, type: 'text'   },
+    ex2_pentagon:{ answer: 'pentagon',  points: 3.75, type: 'text'   },
+    ex2_octagon: { answer: 'octagon',   points: 3.75, type: 'text'   },
+    ex4a:        { answer: 'cone',      points: 5,    type: 'text'   },
+    ex4b:        { answer: 'cylinder',  points: 5,    type: 'text'   },
+    ex4c:        { answer: 'cuboid',    points: 5,    type: 'text'   },
+    ex5a:        { answer: 'a',         points: 5,    type: 'text'   },
+    ex5b:        { answer: 'b',         points: 5,    type: 'text'   },
+    ex5c:        { answer: 'd',         points: 5,    type: 'text'   },
+    ex6a:        { answer: '2',         points: 7.5,  type: 'number' },
+    ex6b:        { answer: '6',         points: 7.5,  type: 'number' },
+    ex7a:        { answer: 'wednesday', points: 7.5,  type: 'text'   },
+    ex7b:        { answer: 'sunday',    points: 7.5,  type: 'text'   }
+  };
+
+  function gradeMessage(score) {
+    if (score >= 90) return '🌟 Excellent!';
+    if (score >= 70) return '👍 Good work!';
+    if (score >= 50) return '📚 Keep practicing!';
+    return '💪 More study needed.';
+  }
+
+  function submitExam() {
+    var total = 0;
+
+    Object.keys(ANSWERS).forEach(function (id) {
+      var cfg = ANSWERS[id];
+      var el  = document.getElementById(id);
+      if (!el) return;
+
+      var val     = el.value.trim().toLowerCase();
+      var correct = cfg.answer.toLowerCase();
+      var ok      = (val === correct);
+
+      el.classList.remove('correct', 'incorrect');
+      el.classList.add(ok ? 'correct' : 'incorrect');
+      if (ok) total += cfg.points;
+    });
+
+    var rounded = Math.round(total);
+
+    var gradeEl = document.getElementById('grade-display');
+    if (gradeEl) gradeEl.value = rounded + ' / 100';
+
+    var bar      = document.getElementById('score-bar');
+    var scoreVal = document.getElementById('score-val');
+    var scoreMsg = document.getElementById('score-msg');
+
+    if (bar && scoreVal && scoreMsg) {
+      scoreVal.textContent = rounded;
+      scoreMsg.textContent = gradeMessage(rounded);
+      bar.classList.add('visible');
+      try { bar.scrollIntoView({ block: 'center' }); }
+      catch (e) { bar.scrollIntoView(true); }
+    }
+  }
+
+  var btn = document.getElementById('submit-btn');
+  if (btn) btn.addEventListener('click', submitExam);
+})();
+</script>
+
+</body>
+</html>
